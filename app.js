@@ -31,6 +31,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(flash());
 
+app.use((req, res, next) => {
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+})
+
 app.use('/campgrounds', campgrounds)
 app.use('/campgrounds/:id/reviews', reviews)
 
