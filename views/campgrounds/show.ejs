@@ -16,6 +16,9 @@
                     <li class="list-group-item text-muted">
                         <%= campground.location%>
                     </li>
+                    <li class="list-group-item text">
+                        Submitted by <%= campground.author.username%>
+                    </li>
                     <li class="list-group-item">$<%= campground.price%>/night</li>
                 </ul>
                 <div class="card-body">
@@ -54,9 +57,10 @@
                         </h5>
                         <p class="card-text">
                             Review: <%= review.body %>
-                        <form action="/campgrounds/<%=campground._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
-                            <button class ="btn btn-sm btn-danger">Delete</button>
-                        </form>
+                                <form action="/campgrounds/<%=campground._id%>/reviews/<%=review._id%>?_method=DELETE"
+                                    method="POST">
+                                    <button class="btn btn-sm btn-danger">Delete</button>
+                                </form>
                     </div>
                 </div>
                 <% }%>
