@@ -16,19 +16,8 @@ router.get('/:id', catchAsync(campgrounds.showCampground));
 
 router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm));
 
-router.put('/:id', isLoggedIn, isAuthor, validateCampground, catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground })
-    req.flash('success', 'Successfully updated Campground')
-    res.redirect(`/campgrounds/${campground._id}`)
-}));
+router.put('/:id', isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.updateCampground));
 
-router.delete('/:id', isLoggedIn, isAuthor, catchAsync(async (req, res) => {
-    const { id } = req.params
-    await Campground.findByIdAndDelete(id)
-    req.flash('success', 'Successfully deleted campground')
-    res.redirect('/campgrounds')
-
-}));
+router.delete('/:id', isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground));
 
 module.exports = router;
