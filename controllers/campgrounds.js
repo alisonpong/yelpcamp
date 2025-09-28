@@ -1,3 +1,4 @@
+const campgrounds = require('../models/campgrounds');
 const Campground = require('../models/campgrounds');
 
 module.exports.index = async (req, res) => {
