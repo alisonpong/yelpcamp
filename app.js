@@ -1,8 +1,10 @@
-if(process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
 }
 
 const express = require('express');
+app.set('query parser', 'extended');
+const sanitizeV5 = require('./utils/mongoSanitizeV5')
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
@@ -39,6 +41,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(sanitizeV5({ replaceWith: '_' }));
 
 // configuring sessions
 const sessionConfig = {
@@ -63,8 +66,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
- // suggest to console.log(req.session) to check session details
-    if (!['/login','/'].includes(req.originalUrl)) {
+    // suggest to console.log(req.session) to check session details
+    if (!['/login', '/'].includes(req.originalUrl)) {
         req.session.returnTo = req.originalUrl;
     }
     res.locals.currentUser = req.user;
@@ -74,7 +77,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/fakeUser', async (req, res) => {
-    const user = new User ({email: 'alison.pong@gmail.com', username: 'alison'})
+    const user = new User({ email: 'alison.pong@gmail.com', username: 'alison' })
     const newUser = await User.register(user, 'chicken')
     res.send(newUser);
 })
