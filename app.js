@@ -3,7 +3,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const express = require('express');
-app.set('query parser', 'extended');
 const sanitizeV5 = require('./utils/mongoSanitizeV5')
 const path = require('path');
 const mongoose = require('mongoose');
@@ -31,6 +30,7 @@ db.once("open", () => {
 
 // configuring the app 
 const app = express();
+app.set('query parser', 'extended');
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
