@@ -1,6 +1,6 @@
 mapboxgl.accessToken = mapBoxToken;
 const map = new mapboxgl.Map({
-    container: 'map',
+    container: 'cluster-map', // refers to the css id
     style: 'mapbox://styles/mapbox/standard',
     config: {
         basemap: {
