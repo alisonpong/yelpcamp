@@ -7,7 +7,6 @@ const sanitizeV5 = require('./utils/mongoSanitizeV5')
 const path = require('path');
 const mongoose = require('mongoose');
 const ejsMate = require('ejs-mate');
-const session = require('express-session');
 const flash = require('connect-flash');
 const ExpressError = require('./utils/ExpressError');
 const methodOverride = require('method-override');
@@ -19,12 +18,12 @@ const helmet = require('helmet');
 const userRoutes = require('./routes/userRoutes')
 const campgroundRoutes = require('./routes/campgroundRoutes');
 const reviewRoutes = require('./routes/reviewRoutes')
-const databaseURL = process.env.DB_URL;
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 // connecting to the database
-mongoose.connect('mongodb://localhost:27017/yelp-camp');
-// mongoose.connect(databaseURL);
-
+const databaseURL = 'mongodb://localhost:27017/yelp-camp'; //change database when deploying to production
+mongoose.connect(databaseURL);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -46,8 +45,18 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(sanitizeV5({ replaceWith: '_' }));
 
+const store = MongoStore.create({
+    mongoUrl: databaseURL,
+    touchAfter: 24 * 60 * 60, //24 hours, 60 minutes, 60 seconds
+    crypto: {
+        secret: 'thisshouldbeabettersecret'
+    }
+});
+
+
 // configuring sessions
 const sessionConfig = {
+    store,
     name: 'session',
     secret: 'thisshouldbeabettersecret',
     resave: false,
@@ -85,7 +94,8 @@ const connectSrcUrls = [
     "https://a.tiles.mapbox.com/",
     "https://b.tiles.mapbox.com/",
     "https://events.mapbox.com/",
-    "https://cdn.jsdelivr.net"
+    "https://cdn.jsdelivr.net",
+    "https://stackpath.bootstrapcdn.com"
 ];
 const fontSrcUrls = [];
 app.use(
