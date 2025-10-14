@@ -19,10 +19,12 @@ const helmet = require('helmet');
 const userRoutes = require('./routes/userRoutes')
 const campgroundRoutes = require('./routes/campgroundRoutes');
 const reviewRoutes = require('./routes/reviewRoutes')
+const databaseURL = process.env.DB_URL;
 
-mongoose.connect('mongodb://localhost:27017/yelp-camp');
+// connecting to the database
+// mongoose.connect('mongodb://localhost:27017/yelp-camp');
+mongoose.connect(databaseURL);
 
-// connecting to database
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
