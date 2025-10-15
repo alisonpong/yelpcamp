@@ -24,7 +24,13 @@ const MongoStore = require('connect-mongo');
 // connecting to the database
 // const databaseURL = 'mongodb://localhost:27017/yelp-camp'; change database when deploying to production
 const databaseURL = process.env.DB_URL;
-mongoose.connect(databaseURL);
+mongoose.connect(databaseURL, {
+    ssl: true,
+    serverSelectionTimeoutMS: 5000
+});
+
+
+
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
