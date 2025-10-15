@@ -26,7 +26,6 @@ const MongoStore = require('connect-mongo');
 const databaseURL = process.env.DB_URL;
 mongoose.connect(databaseURL, {
     tls: true
-    serverSelectionTimeoutMS: 5000
 });
 
 
