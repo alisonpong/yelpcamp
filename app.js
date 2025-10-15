@@ -22,7 +22,8 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
 // connecting to the database
-const databaseURL = 'mongodb://localhost:27017/yelp-camp'; //change database when deploying to production
+// const databaseURL = 'mongodb://localhost:27017/yelp-camp'; change database when deploying to production
+const databaseURL = process.env.DB_URL;
 mongoose.connect(databaseURL);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
