@@ -1,9 +1,9 @@
-# 🏕️ YelpCamp 
+### 🏕️ YelpCamp 
 YelpCamp is a full-stack web application designed for camping enthusiasts to discover, list, and review campgrounds around the world. This web application was the captstone project of Colt Steele's "The Web Developer Bootcamp" on Udemy.
 
 The goal of this project was to transition from writing isolated scripts to architecting a complete, secure, cloud-deployed product from the ground up. 
 
-## 🚀 Core Features
+#### 🚀 Core Features
 
 *   **User Authentication & Security:** Implemented secure registration and login sessions using **Passport.js**.
 *   **Full CRUD Capabilities:** Users can create, read, update, and delete campground listings and comments.
@@ -12,7 +12,7 @@ The goal of this project was to transition from writing isolated scripts to arch
 *   **Interactive Mapping:** Embedded **Mapbox API** to display campground cluster maps and location coordinates.
 *   **Data Validation:** Utilized **Joi** schemas to validate server-side data entry before writing to the database.
 
-## 🛠️ Tech Stack
+#### 🛠️ Tech Stack
 
 | Layer | Technologies Used |
 |---|---|
@@ -22,7 +22,7 @@ The goal of this project was to transition from writing isolated scripts to arch
 | **Security & Utilities** | PassportJS, Joi, Express-Mongo-Sanitize (NoSQL injection prevention) |
 
 
-## 🏁 Getting Started (Local Run)
+#### 🏁 Getting Started (Local Run)
 
 To run this project locally, clone the repository and install the dependencies:
 
